@@ -1,11 +1,14 @@
 import React from 'react'; 
 
 class Clock extends React.Component { 
-    
+
     constructor(props) 
     { 
         super(props); 
-        this.state = { time : new Date() }; 
+        this.state = { 
+            time : new Date(),
+            showComponent: true
+        }
     } 
   
     // As soon as the Clock is mounted. 
@@ -13,6 +16,11 @@ class Clock extends React.Component {
     // Call tick() every second. 
     componentDidMount() 
     { 
+        setTimeout(() =>{
+            this.setState({
+                showComponent: false
+            })
+        }, 10000)
         this.timer = setInterval( 
             () => this.tick(), 
             1000); 
@@ -38,8 +46,14 @@ class Clock extends React.Component {
     render() 
     { 
         return ( 
-            <div><h5 className="card-title text-white"> Waktu Hari ini{ this.props.title } </h5> 
-        <h5 className="card-title text-white">{this.state.time.toLocaleTimeString()}</h5></div> 
+            <div>{
+                this.state.showComponent
+                ?
+                <h5 className="card-title text-white"> Waktu Hari ini{ this.props.title } </h5>
+                :null
+                }
+            <h5 className="card-title text-white">{this.state.time.toLocaleTimeString()}</h5>
+        </div> 
     ); 
   } 
 } 
